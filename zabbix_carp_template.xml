@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.2</version>
+    <date>2023-02-23T16:04:15Z</date>
+    <template_groups>
+        <template_group>
+            <uuid>8c8feb3f6afd4095b07b69fbb412f20c</uuid>
+            <name>GWs</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>761d9e3ae25d43abb99b5d0778f75eb2</uuid>
+            <template>PFSense CARP</template>
+            <name>PFSense CARP</name>
+            <groups>
+                <group>
+                    <name>GWs</name>
+                </group>
+            </groups>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>546643b3c76041a491772ced84450f4e</uuid>
+                    <name>CARP Discovery</name>
+                    <key>carp.discovery</key>
+                    <delay>2m</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>7a8402e673234185b5d4b7432d755d79</uuid>
+                            <name>CARP Status: {#DESCRIPTION} ({#INTERFACE}-{#VHID})</name>
+                            <key>carp.status[{#VHID}]</key>
+                            <delay>2m</delay>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
