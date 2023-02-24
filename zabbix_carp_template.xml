@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>6.2</version>
-    <date>2023-02-23T16:04:15Z</date>
+    <date>2023-02-24T09:38:23Z</date>
     <template_groups>
         <template_group>
             <uuid>8c8feb3f6afd4095b07b69fbb412f20c</uuid>
@@ -10,9 +10,43 @@
     </template_groups>
     <templates>
         <template>
+            <uuid>2d10147f8c4a4d39841125e21e95e997</uuid>
+            <template>PFSense CARP Backup</template>
+            <name>PFSense CARP Backup</name>
+            <groups>
+                <group>
+                    <name>GWs</name>
+                </group>
+            </groups>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>6747c3bd894e462e9042f22e910650a0</uuid>
+                    <name>CARP Discovery</name>
+                    <key>carp.discovery</key>
+                    <delay>2m</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>a0d4aa56cea74cb391bb3ee272c748d3</uuid>
+                            <name>CARP Status: {#DESCRIPTION} ({#INTERFACE}-{#VHID})</name>
+                            <key>carp.status[{#VHID}]</key>
+                            <delay>2m</delay>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>8574c710009e4b3cb9e314b26e32e2cd</uuid>
+                                    <expression>last(/PFSense CARP Backup/carp.status[{#VHID}])=1</expression>
+                                    <name>{#DESCRIPTION} ({#INTERFACE}, vhid {#VHID}) switched to MASTER</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+        <template>
             <uuid>761d9e3ae25d43abb99b5d0778f75eb2</uuid>
-            <template>PFSense CARP</template>
-            <name>PFSense CARP</name>
+            <template>PFSense CARP Master</template>
+            <name>PFSense CARP Master</name>
             <groups>
                 <group>
                     <name>GWs</name>
@@ -30,6 +64,14 @@
                             <name>CARP Status: {#DESCRIPTION} ({#INTERFACE}-{#VHID})</name>
                             <key>carp.status[{#VHID}]</key>
                             <delay>2m</delay>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>6fefe58574dc4aa688a3621cbe37c3a4</uuid>
+                                    <expression>last(/PFSense CARP Master/carp.status[{#VHID}])=0</expression>
+                                    <name>{#DESCRIPTION} ({#INTERFACE}, vhid {#VHID}) switched to BACKUP</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
                         </item_prototype>
                     </item_prototypes>
                 </discovery_rule>
