@@ -1,11 +1,3 @@
-chmod +x /usr/local/bin/zabbix_carp.py
-chmod +x /usr/local/bin/check_carp.sh
-
-
-UserParameter=carp.discovery,/usr/local/bin/python3.8 /usr/local/bin/zabbix_carp.py
-UserParameter=carp.status[*],/usr/local/bin/check_carp.sh $1
-
-
 if [ $# -eq 0 ]; then
 	echo "Missing arguments"
 	exit $STATE_UNKNOWN
